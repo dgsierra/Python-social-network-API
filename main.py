@@ -1,7 +1,9 @@
-from fastapi import FastAPI
-from fastapi.params import Body
+from fastapi import FastAPI # Import FastAPI
+from fastapi.params import Body # <-- Import Body
+from pydantic import BaseModel # <-- Import BaseModel
 
 app = FastAPI()
+x = ''
 
 @app.get("/")
 async def root():
@@ -15,4 +17,5 @@ def get_posts():
 @app.post("/create/")
 def create_post(payLoad: dict = Body(...)):
     print(payLoad)
-    return {"new_post": f"Title: {payLoad['title']}, Content: {payLoad['content']}"}
+    x = payLoad['extra']
+    return {"new_post": f"Title: {payLoad['title']}, Content: {payLoad['content']} and Extra: {x}"}
